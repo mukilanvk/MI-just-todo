@@ -7,43 +7,56 @@ import Snackbar, { Snack } from '../components/Snackbar/Snackbar';
 
 interface MainLayoutProps {
   children: React.ReactNode;
-  breadcrumbs?: { label: string; onClick?: () => void }[];
   showNotifications: boolean;
   onToggleNotifications: (show: boolean) => void;
   onNavigateHome: () => void;
+  onNavigateBoards: () => void;
+  onNavigateSettings: () => void;
+  onNavigateAnalytics?: () => void;
   onCreateNew: () => void;
   snacks: Snack[];
   onRemoveSnack: (id: string) => void;
   activeItem?: string;
+  breadcrumbs?: { label: string; onClick?: () => void }[];
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ 
   children, 
-  breadcrumbs, 
   showNotifications, 
   onToggleNotifications, 
   onNavigateHome,
+  onNavigateBoards,
+  onNavigateSettings,
+  onNavigateAnalytics,
   onCreateNew,
   snacks,
   onRemoveSnack,
-  activeItem
+  activeItem,
+  breadcrumbs
 }) => {
   return (
-    <div className="flex h-screen w-full relative bg-slate-50 overflow-hidden font-sans">
-      <div className="fixed inset-0 z-0 bg-gradient-mesh pointer-events-none opacity-50" />
-      
+    <div className="flex h-screen w-full relative bg-[#f8fbff] overflow-hidden font-sans">
       <Sidebar 
         onCreateNew={onCreateNew} 
         activeItem={activeItem} 
-        onNavigate={(label) => label === 'Home' || label === 'Boards' ? onNavigateHome() : null}
+        onNavigate={(label) => {
+          if (label === 'Home') {
+            onNavigateHome();
+          } else if (label === 'Boards') {
+            onNavigateBoards();
+          } else if (label === 'Settings') {
+            onNavigateSettings();
+          } else if (label === 'Analytics') {
+            onNavigateAnalytics?.();
+          }
+        }}
       />
 
-      <main className="flex-1 flex flex-col relative z-10 overflow-hidden">
+      <main className="flex-1 flex flex-col relative overflow-hidden">
         <Header 
           onToggleNotifications={() => onToggleNotifications(true)} 
           breadcrumbs={breadcrumbs}
         />
-
         <div className="flex-1 overflow-y-auto overflow-x-hidden relative scrollbar-hide">
           {children}
         </div>

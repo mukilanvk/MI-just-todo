@@ -1,154 +1,215 @@
 
-import React, { useState } from 'react';
-import Hero from '../../components/Hero/Hero';
-import BoardCard from '../../components/BoardCard/BoardCard';
-import { Board } from '../../types/board.types';
-import { ChevronDown, LayoutGrid, List as ListIcon, Plus, ArrowRight } from 'lucide-react';
+import React from 'react';
+import { 
+  Plus, 
+  Settings2, 
+  Trophy, 
+  Activity, 
+  Clock, 
+  Users, 
+  Brush, 
+  Calendar, 
+  MoreHorizontal 
+} from 'lucide-react';
 
-interface DashboardProps {
-  boards: Board[];
-  onSelectBoard: (board: Board) => void;
-  onCreateNew: () => void;
-}
-
-const Dashboard: React.FC<DashboardProps> = ({ boards, onSelectBoard, onCreateNew }) => {
-  const [layout, setLayout] = useState<'grid' | 'list'>('grid');
-  const [activeFilter, setActiveFilter] = useState('All Boards');
-
-  const filteredBoards = activeFilter === 'All Boards' 
-    ? boards 
-    : boards.filter(b => b.category === activeFilter);
-
+const Dashboard: React.FC = () => {
   return (
-    <div className="p-6 md:p-8 lg:p-12 pb-24 w-full mx-auto">
-      <Hero onCreateNew={onCreateNew} />
-      
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-        <div className="flex gap-1 overflow-x-auto pb-2 scrollbar-hide bg-slate-100/50 p-1.5 rounded-2xl border border-slate-200/50">
-          {['All Boards', 'Personal', 'Work', 'Family', 'Project'].map(f => (
-            <button 
-              key={f} 
-              onClick={() => setActiveFilter(f)}
-              className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
-                activeFilter === f 
-                  ? 'bg-white text-slate-900 shadow-sm border border-slate-100' 
-                  : 'text-slate-500 hover:text-slate-900'
-              }`}
-            >
-              <span className="flex items-center gap-2">
-                {f !== 'All Boards' && <span className={`size-2 rounded-full ${
-                  f === 'Personal' ? 'bg-blue-500' : 
-                  f === 'Work' ? 'bg-teal-400' : 
-                  f === 'Family' ? 'bg-purple-500' : 'bg-orange-500'
-                }`}></span>}
-                {f}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-bold text-slate-400">Sort by:</span>
-            <div className="relative group">
-              <select className="appearance-none bg-white text-slate-700 text-sm font-bold pl-4 pr-10 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 cursor-pointer hover:bg-slate-50 shadow-sm transition-all min-w-[140px]">
-                <option>Last Active</option>
-                <option>Progress</option>
-                <option>Name (A-Z)</option>
-              </select>
-              <ChevronDown size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-            </div>
-          </div>
-          
-          <div className="h-8 w-px bg-slate-200 hidden sm:block"></div>
-          
-          <div className="flex bg-slate-100/80 p-1 rounded-xl border border-slate-200/50 shadow-inner">
-            <button 
-              onClick={() => setLayout('grid')}
-              className={`p-2 rounded-lg transition-all ${layout === 'grid' ? 'bg-white text-primary shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
-            >
-              <LayoutGrid size={20} />
-            </button>
-            <button 
-              onClick={() => setLayout('list')}
-              className={`p-2 rounded-lg transition-all ${layout === 'list' ? 'bg-white text-primary shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
-            >
-              <ListIcon size={20} />
-            </button>
-          </div>
-        </div>
+    <div className="p-10 lg:p-14 pb-24 w-full bg-[#f8fbff] min-h-full">
+      {/* Greeting Section */}
+      <div className="mb-12">
+        <h1 className="text-4xl font-black text-slate-900 mb-3 tracking-tight">Good Morning, Alex 👋</h1>
+        <p className="text-slate-400 font-medium text-xl">Focus on being productive instead of busy.</p>
       </div>
 
-      {layout === 'grid' ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8 animate-fade-in">
-          {filteredBoards.map((board) => (
-            <BoardCard key={board.id} board={board} onClick={() => onSelectBoard(board)} />
-          ))}
-          <article 
-            onClick={onCreateNew} 
-            className="rounded-[1.8rem] p-8 border-2 border-dashed border-slate-200 hover:border-primary hover:bg-primary/5 transition-all flex flex-col items-center justify-center gap-5 group cursor-pointer min-h-[280px]"
+      {/* Productivity Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <StatCard 
+          label="Total Tasks" 
+          value="12" 
+          badge="+2 new" 
+          badgeColor="bg-emerald-50 text-emerald-600" 
+          barColor="bg-primary" 
+          icon={Settings2} 
+          iconBg="bg-blue-50 text-blue-500"
+          percent={70}
+        />
+        <StatCard 
+          label="Completed" 
+          value="8" 
+          badge="+5 this week" 
+          badgeColor="bg-emerald-50 text-emerald-600" 
+          barColor="bg-accent-purple" 
+          icon={Trophy} 
+          iconBg="bg-purple-50 text-purple-500"
+          percent={45}
+        />
+        <StatCard 
+          label="Efficiency Score" 
+          value="85%" 
+          badge="+12%" 
+          badgeColor="bg-emerald-50 text-emerald-600" 
+          barColor="bg-accent-orange" 
+          icon={Activity} 
+          iconBg="bg-orange-50 text-orange-500"
+          percent={85}
+        />
+      </div>
+
+      {/* Categorized Tasks Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+        {/* Overdue Tasks Column */}
+        <div className="flex flex-col gap-6">
+          <TaskCategoryCard 
+            title="Due Passed" 
+            accentColor="bg-rose-500" 
+            badge="1 Task" 
+            badgeColor="bg-rose-50 text-rose-500"
           >
-            <div className="size-16 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-white group-hover:scale-110 group-hover:rotate-90 transition-all duration-500 shadow-sm">
-              <Plus size={36} className="text-slate-400 group-hover:text-primary transition-colors" strokeWidth={2.5} />
-            </div>
-            <div className="text-center">
-              <h3 className="text-slate-700 font-black text-lg group-hover:text-primary transition-colors tracking-tight">Create New Board</h3>
-              <p className="text-slate-400 text-sm font-bold mt-1 uppercase tracking-widest">Start from scratch</p>
-            </div>
-          </article>
+            <TaskItem 
+              tag="HIGH PRIORITY" 
+              tagColor="bg-rose-50 text-rose-500"
+              title="Review Q3 Report"
+              subtitle="Yesterday"
+              icon={Clock}
+              statusLine="bg-rose-500"
+            />
+          </TaskCategoryCard>
+
+          <TaskCategoryCard title="Today" accentColor="bg-accent-orange" showPlus>
+            <TaskItem 
+              tag="MEETING" 
+              tagColor="bg-blue-50 text-blue-500"
+              title="Client Kickoff Meeting"
+              subtitle="2:00 PM"
+              icon={Users}
+            />
+            <TaskItem 
+              tag="DESIGN" 
+              tagColor="bg-purple-50 text-purple-500"
+              title="Update Figma Designs"
+              icon={Brush}
+            />
+          </TaskCategoryCard>
         </div>
-      ) : (
-        <div className="bg-white rounded-[1.8rem] border border-slate-100 shadow-sm overflow-hidden animate-fade-in">
-           <table className="w-full text-left">
-              <thead className="bg-slate-50/50 border-b border-slate-100">
-                <tr>
-                  <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Workspace</th>
-                  <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Status</th>
-                  <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Progress</th>
-                  <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {filteredBoards.map((board) => (
-                  <tr key={board.id} onClick={() => onSelectBoard(board)} className="hover:bg-slate-50/80 transition-colors cursor-pointer group">
-                    <td className="px-8 py-6">
-                      <div className="flex items-center gap-4">
-                        <div className={`size-10 rounded-xl bg-gradient-to-br ${board.gradient} flex items-center justify-center text-white shadow-sm`}>
-                          <LayoutGrid size={18} />
-                        </div>
-                        <div>
-                          <p className="font-black text-slate-800 text-base leading-none">{board.title}</p>
-                          <p className="text-[10px] font-black uppercase text-slate-400 mt-1.5 tracking-widest">{board.category}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-8 py-6">
-                       <span className={`inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest ${board.statusColor}`}>
-                         <Plus size={14} />
-                         {board.status}
-                       </span>
-                    </td>
-                    <td className="px-8 py-6">
-                       <div className="flex items-center gap-4 min-w-[120px]">
-                         <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                           <div className={`h-full bg-gradient-to-r ${board.gradient}`} style={{ width: `${board.progress}%` }}></div>
-                         </div>
-                         <span className="text-xs font-black text-slate-800">{board.progress}%</span>
-                       </div>
-                    </td>
-                    <td className="px-8 py-6 text-right">
-                       <button className="text-slate-300 hover:text-slate-600 transition-colors">
-                         <ArrowRight size={24} />
-                       </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-           </table>
+
+        {/* Current Week Tasks Column */}
+        <div className="flex flex-col gap-6">
+          <TaskCategoryCard 
+            title="This Week" 
+            accentColor="bg-sky-400" 
+            badge="3 Tasks" 
+            badgeColor="bg-sky-50 text-sky-600"
+          >
+            <TaskItem 
+              tag="MARKETING" 
+              tagColor="bg-emerald-50 text-emerald-600"
+              title="Draft Email Campaign"
+              subtitle="Thu, Oct 26"
+              icon={Calendar}
+              progress={30}
+            />
+            <TaskItem 
+              tag="DEVELOPMENT" 
+              tagColor="bg-orange-50 text-orange-500"
+              title="Fix Navigation Bug"
+              subtitle="Fri, Oct 27"
+              icon={Calendar}
+            />
+          </TaskCategoryCard>
         </div>
-      )}
+
+        {/* Future Tasks Column */}
+        <div className="flex flex-col gap-6">
+          <TaskCategoryCard title="Next Week" accentColor="bg-fuchsia-500" showPlus>
+             <TaskItem 
+              tag="STRATEGY" 
+              tagColor="bg-slate-100 text-slate-600"
+              title="Quarterly Planning"
+              subtitle="All Team"
+              icon={Users}
+            />
+          </TaskCategoryCard>
+
+          <TaskCategoryCard title="This Month" accentColor="bg-emerald-400">
+             <TaskItem 
+              tag="ADMIN" 
+              tagColor="bg-slate-100 text-slate-600"
+              title="Renew Software Licenses"
+              subtitle="Due in 20 days"
+              icon={Calendar}
+            />
+          </TaskCategoryCard>
+        </div>
+      </div>
     </div>
   );
 };
+
+const StatCard = ({ label, value, badge, badgeColor, barColor, icon: Icon, iconBg, percent }: any) => (
+  <div className="bg-white p-8 rounded-[2.5rem] shadow-sm flex flex-col gap-6 relative group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden border border-slate-50">
+    <div className="flex items-start justify-between">
+      <div className={`size-12 rounded-2xl ${iconBg} flex items-center justify-center`}>
+        <Icon size={24} strokeWidth={2.5} />
+      </div>
+      <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${badgeColor}`}>{badge}</span>
+    </div>
+    <div className="flex flex-col">
+      <span className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">{label}</span>
+      <span className="text-4xl font-black text-slate-900">{value}</span>
+    </div>
+    <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+      <div className={`h-full ${barColor} transition-all duration-1000 ease-out`} style={{ width: `${percent}%` }} />
+    </div>
+  </div>
+);
+
+const TaskCategoryCard = ({ title, children, accentColor, badge, badgeColor, showPlus }: any) => (
+  <div className="bg-white rounded-[2.5rem] shadow-sm overflow-hidden flex flex-col border border-slate-50">
+    <div className={`h-2 w-full ${accentColor}`} />
+    <div className="p-8 flex flex-col gap-8">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className={`size-2.5 rounded-full ${accentColor}`} />
+          <h3 className="font-black text-slate-800 text-lg tracking-tight">{title}</h3>
+          {badge && <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${badgeColor}`}>{badge}</span>}
+        </div>
+        {showPlus && (
+          <button className="text-slate-300 hover:text-slate-600 transition-colors">
+            <Plus size={20} />
+          </button>
+        )}
+      </div>
+      <div className="flex flex-col gap-10">
+        {children}
+      </div>
+    </div>
+  </div>
+);
+
+const TaskItem = ({ tag, tagColor, title, subtitle, icon: Icon, statusLine, progress }: any) => (
+  <div className="flex flex-col gap-4 group cursor-pointer">
+    <div className="flex justify-between items-start">
+      <span className={`px-2.5 py-1 rounded-md text-[9px] font-black uppercase tracking-[0.15em] ${tagColor}`}>{tag}</span>
+      <button className="text-slate-200 hover:text-slate-500 opacity-0 group-hover:opacity-100 transition-all">
+        <MoreHorizontal size={18} />
+      </button>
+    </div>
+    <div className="flex flex-col gap-2">
+      <h4 className="text-slate-800 font-bold text-base leading-tight group-hover:text-primary transition-colors tracking-tight">{title}</h4>
+      {subtitle && (
+        <div className="flex items-center gap-1.5 text-slate-400 font-bold text-[11px]">
+          <Icon size={14} />
+          {subtitle}
+        </div>
+      )}
+    </div>
+    {statusLine && <div className={`h-1 w-24 ${statusLine} rounded-full`} />}
+    {progress !== undefined && (
+      <div className="w-full h-1 bg-slate-50 rounded-full overflow-hidden mt-2">
+        <div className="h-full bg-primary" style={{ width: `${progress}%` }} />
+      </div>
+    )}
+  </div>
+);
 
 export default Dashboard;

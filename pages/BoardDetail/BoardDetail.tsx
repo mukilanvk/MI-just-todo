@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import BoardSettings from '../../components/BoardSettings/BoardSettings';
 import TaskModal from '../../components/TaskModal/TaskModal';
@@ -25,7 +26,8 @@ import {
   Download,
   Send,
   History,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Cpu
 } from 'lucide-react';
 
 interface BoardDetailProps {
@@ -415,7 +417,6 @@ const BoardDetail: React.FC<BoardDetailProps> = ({ board, onBack, onUpdateTasks,
   );
 };
 
-// Helper components declared only once at the end of the file.
 const TaskCard: React.FC<{ task: Task, onClick: () => void, onDragStart: (e: React.DragEvent) => void }> = ({ task, onClick, onDragStart }) => {
   const getStyle = (p: string, s: string) => {
     if (s === 'Completed') return { badge: 'bg-emerald-50 text-emerald-600', bar: 'bg-emerald-500', label: 'DONE' };
