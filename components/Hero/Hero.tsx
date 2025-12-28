@@ -19,21 +19,21 @@ const Hero: React.FC<HeroProps> = ({ onCreateNew }) => {
       setInsight(result);
     } catch (error) {
       console.error(error);
-      setInsight("You're managing your projects expertly! Keep it up.");
+      setInsight("You have 12 active projects and 4 pending tasks today. Keep up the momentum!");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section className="w-full rounded-3xl overflow-hidden relative mb-10 group shadow-xl shadow-sky-500/10">
+    <section className="w-full rounded-[2rem] overflow-hidden relative mb-10 group shadow-xl shadow-sky-500/10 animate-fade-in">
       <div className="absolute inset-0 bg-gradient-to-br from-sky-400 via-cyan-500 to-emerald-500 opacity-100"></div>
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
       
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-between p-8 md:p-12 gap-8">
         <div className="flex flex-col gap-6 max-w-xl text-center md:text-left">
-          <div className="space-y-2">
-            <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md border border-white/30 mb-2 shadow-sm">
+          <div className="space-y-3">
+            <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-[10px] font-black uppercase tracking-wider text-white backdrop-blur-md border border-white/30 mb-1 shadow-sm">
               Premium Workspace
             </span>
             <h1 className="text-4xl md:text-5xl font-black text-white leading-tight tracking-tight drop-shadow-sm">
@@ -49,7 +49,7 @@ const Hero: React.FC<HeroProps> = ({ onCreateNew }) => {
               onClick={onCreateNew}
               className="flex items-center gap-2 bg-white text-sky-600 px-6 py-3 rounded-xl font-bold hover:bg-sky-50 hover:scale-105 transition-all shadow-lg shadow-sky-900/10 active:scale-95"
             >
-              <Plus size={18} strokeWidth={2.5} />
+              <Plus size={20} strokeWidth={2.5} />
               Create New Board
             </button>
             <button 

@@ -53,14 +53,6 @@ export const BOARD_COMMENTS: Comment[] = [
       type: 'image',
       url: '#'
     }
-  },
-  {
-    id: 'c2',
-    userName: 'Alex M.',
-    userAvatar: 'https://picsum.photos/seed/alex/40/40',
-    text: "Looks great! Let's ship it. 🚀",
-    timestamp: '11:05 AM',
-    type: 'comment'
   }
 ];
 
@@ -68,36 +60,14 @@ export const MOCK_TASKS: Task[] = [
   {
     id: 'TSK-1023',
     title: 'Update Landing Page Hero Section',
-    description: 'Refine the 3D assets and ensure the copy matches the new brand voice. We need to focus on the lighting effects in the hero banner to match the new "Cyber-Nature" aesthetic.',
+    description: 'Refine the 3D assets and ensure the copy matches the new brand voice.',
     status: 'In Progress',
     priority: 'High',
     assignees: ['https://picsum.photos/seed/sarah/40/40', 'https://picsum.photos/seed/emily/40/40'],
     dueDate: 'Oct 24, 2023',
-    subtasks: [
-      { id: 's1', title: 'Export 3D assets from Blender', completed: true },
-      { id: 's2', title: 'Update copy for the main headline', completed: false },
-      { id: 's3', title: 'QA testing on mobile devices', completed: false },
-    ],
-    attachments: [
-      { id: 'att1', name: 'hero_render_v2.png', size: '2.4 MB', type: 'image', url: '#' },
-      { id: 'att2', name: 'main_assets.fig', size: '14 MB', type: 'file', url: '#' }
-    ],
-    versions: [
-      { id: 'v1', title: 'Initial Draft', description: 'Created task', timestamp: 'Oct 20 at 9:00 AM', userName: 'Sarah Jenkins', userAvatar: 'https://picsum.photos/seed/sarah/40/40', changeNote: 'Task Created' }
-    ]
-  },
-  {
-    id: 'TSK-1024',
-    title: 'Approve Final Budget',
-    description: 'Review final spend.',
-    status: 'To Do',
-    priority: 'High',
-    assignees: ['https://picsum.photos/seed/david/40/40', 'https://picsum.photos/seed/emily/40/40'],
-    dueDate: 'Oct 28, 2023',
     subtasks: [],
     attachments: [],
-    versions: [],
-    progress: 60
+    versions: []
   }
 ];
 
@@ -111,6 +81,54 @@ export const BOARDS: Board[] = [
     gradient: 'from-sky-400 to-indigo-500',
     avatars: ['https://picsum.photos/seed/sarah/32/32', 'https://picsum.photos/seed/david/32/32', 'https://picsum.photos/seed/elena/32/32'],
     status: '85% done',
+    statusIcon: 'check_circle',
+    statusColor: 'text-emerald-500',
+    members: MOCK_MEMBERS,
+    tasks: MOCK_TASKS,
+    comments: BOARD_COMMENTS,
+    columns: DEFAULT_COLUMNS
+  },
+  {
+    id: '2',
+    title: 'Home Renovation',
+    category: Category.Personal,
+    progress: 45,
+    icon: 'home_work',
+    gradient: 'from-orange-400 to-rose-500',
+    avatars: ['https://picsum.photos/seed/p1/32/32', 'https://picsum.photos/seed/p2/32/32'],
+    status: 'In Progress',
+    statusIcon: 'bolt',
+    statusColor: 'text-amber-500',
+    members: MOCK_MEMBERS,
+    tasks: MOCK_TASKS,
+    comments: BOARD_COMMENTS,
+    columns: DEFAULT_COLUMNS
+  },
+  {
+    id: '3',
+    title: 'Financial Q4 Roadmap',
+    category: Category.Finance,
+    progress: 20,
+    icon: 'attach_money',
+    gradient: 'from-emerald-400 to-teal-600',
+    avatars: ['https://picsum.photos/seed/f1/32/32'],
+    status: 'Planning',
+    statusIcon: 'calendar_month',
+    statusColor: 'text-sky-500',
+    members: MOCK_MEMBERS,
+    tasks: MOCK_TASKS,
+    comments: BOARD_COMMENTS,
+    columns: DEFAULT_COLUMNS
+  },
+  {
+    id: '4',
+    title: 'Summer Family Trip',
+    category: Category.Family,
+    progress: 100,
+    icon: 'flight_takeoff',
+    gradient: 'from-purple-400 to-fuchsia-600',
+    avatars: ['https://picsum.photos/seed/t1/32/32', 'https://picsum.photos/seed/t2/32/32', 'https://picsum.photos/seed/t3/32/32'],
+    status: 'Completed',
     statusIcon: 'check_circle',
     statusColor: 'text-emerald-500',
     members: MOCK_MEMBERS,
